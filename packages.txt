@@ -4,3 +4,8 @@ libavdevice-dev
 libavfilter-dev
 libopus-dev
 libvpx-dev
+libavcodec-dev
+libavformat-dev
+libavutil-dev
+libswscale-dev
+libswresample-dev

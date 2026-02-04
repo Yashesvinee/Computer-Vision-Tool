@@ -51,6 +51,11 @@ def out_recorder_factory() -> MediaRecorder:
 class VideoTransformer:
     def __init__(self):
         # Initialize MediaPipe resources here, at runtime
+        # Ensure mp.solutions is available
+        if not hasattr(mp, 'solutions'):
+             import mediapipe.python.solutions as solutions
+             mp.solutions = solutions
+
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose()
         self.mpDraw = mp.solutions.drawing_utils

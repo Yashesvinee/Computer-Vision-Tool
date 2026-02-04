@@ -9,3 +9,5 @@ libavformat-dev
 libavutil-dev
 libswscale-dev
 libswresample-dev
+libxml2-dev
+libxslt-dev

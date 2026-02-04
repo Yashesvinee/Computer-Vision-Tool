@@ -18,9 +18,17 @@ from score_calc_func import angle_calc
 import mimetypes
 import math as m
 
-mpPose = mp.solutions.pose
-pose = mpPose.Pose()
-mpDraw = mp.solutions.drawing_utils
+mpPose = None
+pose = None
+mpDraw = None
+
+def init_home_mediapipe():
+    global mpPose, pose, mpDraw
+    if pose is None:
+        mpPose = mp.solutions.pose
+        pose = mpPose.Pose()
+        mpDraw = mp.solutions.drawing_utils
+
 
 
 def findDistance(x1, y1, x2, y2):
@@ -47,6 +55,7 @@ def image_pose_estimation(name):
 
 
 def video_pose_estimation(cap):
+    init_home_mediapipe()
     # For webcam input replace file name with 0.
     # file_name = 'input.mp4'
     # cap = cv2.VideoCapture(name)

@@ -14,9 +14,10 @@ from streamlit_webrtc import webrtc_streamer
 
 lock = threading.Lock()
 
-mpPose = mp.solutions.pose
-pose = mpPose.Pose()
-mpDraw = mp.solutions.drawing_utils
+# Global initialization removed to avoid import-time crashes
+# mpPose = mp.solutions.pose
+# pose = mpPose.Pose()
+# mpDraw = mp.solutions.drawing_utils
 
 
 def findDistance(x1, y1, x2, y2):
@@ -40,10 +41,19 @@ out_file = Path("output.mp4")
 
 
 def out_recorder_factory() -> MediaRecorder:
-    return MediaRecorder(str(out_file), format="mp4")
+    try:
+        return MediaRecorder(str(out_file), format="mp4")
+    except Exception as e:
+        print(f"Error creating MediaRecorder: {e}")
+        return None
 
 
 class VideoTransformer:
+    def __init__(self):
+        # Initialize MediaPipe resources here, at runtime
+        self.mpPose = mp.solutions.pose
+        self.pose = self.mpPose.Pose()
+        self.mpDraw = mp.solutions.drawing_utils
 
     def recv(self, frame):
         image = frame.to_ndarray(format="bgr24")
@@ -52,18 +62,18 @@ class VideoTransformer:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # Process the image.
-        keypoints = pose.process(image)
+        keypoints = self.pose.process(image)
 
         # Convert the image back to BGR.
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         # Use lm and lmPose as representative of the following methods.
         lm = keypoints.pose_landmarks
-        lmPose = mpPose.PoseLandmark
+        lmPose = self.mpPose.PoseLandmark
 
         pose1 = []
         if keypoints.pose_landmarks:
-            mpDraw.draw_landmarks(image, keypoints.pose_landmarks, mpPose.POSE_CONNECTIONS)
+            self.mpDraw.draw_landmarks(image, keypoints.pose_landmarks, self.mpPose.POSE_CONNECTIONS)
             for id, l in enumerate(keypoints.pose_landmarks.landmark):
                 x_y_z = []
                 h, w, c = image.shape
@@ -73,13 +83,21 @@ class VideoTransformer:
                 x_y_z.append(l.visibility)
                 pose1.append(x_y_z)
 
+        # Prevent crash if no landmarks found
+        if not pose1 or len(pose1) <= 24:
+             return av.VideoFrame.from_ndarray(image, format="bgr24")
+
         Nose = pose1[0]
         L_Neck = pose1[11]
         R_Neck = pose1[12]
-        R_Hip = pose1[24]
-        L_Hip = pose1[23]
+        r_hip_idx = 24
+        l_hip_idx = 23
+        
+        R_Hip = pose1[r_hip_idx]
+        L_Hip = pose1[l_hip_idx]
         R_Eye = pose1[5]
         L_Eye = pose1[2]
+        
         offset = findDistance(L_Neck[0], L_Neck[1], R_Neck[0], R_Neck[1])
         neckx, necky = findmid(L_Neck[0], L_Neck[1], R_Neck[0], R_Neck[1])
         eyex, eyey = findmid(L_Eye[0], L_Eye[1], R_Eye[0], R_Eye[1])
@@ -94,6 +112,7 @@ class VideoTransformer:
 
         print(score)
         font = cv2.FONT_HERSHEY_SIMPLEX
+        h, w = image.shape[:2]
 
         if not (score['neck'] in range(85, 90)) or not(score['trunk'] in range(0, 5)):
             string = "WARNING!!!!\nBAD POSTURE"

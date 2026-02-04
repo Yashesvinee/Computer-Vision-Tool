@@ -7,9 +7,22 @@ import math
 import math as m
 import numpy as np
 
-mpPose = mp.solutions.pose
-pose = mpPose.Pose()
-mpDraw = mp.solutions.drawing_utils
+mpPose = None
+pose = None
+mpDraw = None
+
+def init_mediapipe():
+    global mpPose, pose, mpDraw
+    if pose is None:
+        if not hasattr(mp, 'solutions'):
+             # Try forcing load of solutions if missing
+             import mediapipe.python.solutions as solutions
+             mp.solutions = solutions
+        
+        mpPose = mp.solutions.pose
+        pose = mpPose.Pose()
+        mpDraw = mp.solutions.drawing_utils
+
 
 # In[3]:
 
@@ -724,7 +737,7 @@ def angle_calc(pose):
 
 
 def pose_estimation(img):
-
+    init_mediapipe()
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     results = pose.process(imgRGB)
     pose1 = []

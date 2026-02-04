@@ -6,7 +6,6 @@ Pillow
 requests
 streamlit-webrtc
 streamlit-lottie
-streamlit-extras
 av>=12.0.0
 aiortc>=1.6.0
 aioice>=0.9.0

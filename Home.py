@@ -1,6 +1,6 @@
 import tempfile
 
-from streamlit_extras.switch_page_button import switch_page
+# from streamlit_extras.switch_page_button import switch_page
 import av
 from streamlit_webrtc import webrtc_streamer
 import streamlit as st
@@ -182,7 +182,7 @@ def main_loop():
         st.text("To record and get results for a live video, navigate to Live Monitoring.")
         live = st.button("Go to Live")
         if live:
-            switch_page("record live")
+            st.switch_page("pages/2_Record Live.py")
 
     with col2:
         st_lottie(url_json, height=300)

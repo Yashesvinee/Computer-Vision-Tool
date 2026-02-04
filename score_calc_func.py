@@ -481,12 +481,12 @@ def reba_score(angle_dict, pose, profile):
 # In[9]:
 
 
-import cv2
-import mediapipe as mp
+# import cv2
+# import mediapipe as mp
 
-mpPose = mp.solutions.pose
-pose = mpPose.Pose()
-mpDraw = mp.solutions.drawing_utils
+# mpPose = mp.solutions.pose
+# pose = mpPose.Pose()
+# mpDraw = mp.solutions.drawing_utils
 
 import math
 import numpy as np

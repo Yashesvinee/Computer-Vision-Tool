@@ -1,6 +1,4 @@
-import sys
 import tempfile
-from turtle import width
 
 from streamlit_extras.switch_page_button import switch_page
 import av
@@ -18,7 +16,6 @@ import mediapipe as mp
 from score_calc_func import pose_estimation
 from score_calc_func import angle_calc
 import mimetypes
-from tkinter import filedialog
 import math as m
 
 mpPose = mp.solutions.pose
@@ -47,15 +44,6 @@ def image_pose_estimation(name):
     score, image = pose_estimation(name)
     print(score)
     return score, image
-    # if rula and reba:
-    ##       pgi.alert("Posture not proper in upper body","Warning")
-    #   elif int(reba)>4:
-    #        pgi.alert("Posture not proper in your body","Warning")
-    # variable1.set("Rapid Upper Limb Assessment Score : "+rula)
-    # variable2.set("Rapid Entire Body Score : "+reba)
-    # root.update()
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 
 def video_pose_estimation(cap):
@@ -153,13 +141,8 @@ def video_pose_estimation(cap):
 
         video_output.write(image)
 
-        # Display.
-        # cv2.imshow('MediaPipe Pose', image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            return video_output
-
     cap.release()
-    cv2.destroyAllWindows()
+    video_output.release()
     return video_output
 
 

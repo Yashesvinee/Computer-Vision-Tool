@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import cv2
+import mediapipe as mp
+import math
+import math as m
+import numpy as np
+
+mpPose = mp.solutions.pose
+pose = mpPose.Pose()
+mpDraw = mp.solutions.drawing_utils
+
 # In[3]:
 
 

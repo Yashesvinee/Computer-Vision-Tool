@@ -17,4 +17,5 @@ dependencies:
     - av
     - aiortc
     - aioice
+    - opencv-python-headless
     # - protobuf<4.0.0  # Let pip resolve protobuf to avoid conflicts

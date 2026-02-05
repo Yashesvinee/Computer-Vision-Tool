@@ -16,4 +16,4 @@ dependencies:
     - av
     - aiortc
     - aioice
-    - protobuf<4.0.0
+    # - protobuf<4.0.0  # Let pip resolve protobuf to avoid conflicts

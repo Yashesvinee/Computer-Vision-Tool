@@ -51,9 +51,19 @@ def out_recorder_factory() -> MediaRecorder:
 class VideoTransformer:
     def __init__(self):
         # Initialize MediaPipe resources here, at runtime
-        self.mpPose = mp.solutions.pose
+        try:
+            self.mpPose = mp.solutions.pose
+        except AttributeError:
+            import mediapipe.python.solutions.pose as mp_pose
+            self.mpPose = mp_pose
+
+        try:
+            self.mpDraw = mp.solutions.drawing_utils
+        except AttributeError:
+            import mediapipe.python.solutions.drawing_utils as mp_drawing
+            self.mpDraw = mp_drawing
+            
         self.pose = self.mpPose.Pose()
-        self.mpDraw = mp.solutions.drawing_utils
 
     def recv(self, frame):
         image = frame.to_ndarray(format="bgr24")

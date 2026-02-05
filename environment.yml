@@ -1,9 +1,12 @@
 name: computer-vision-tool
 channels:
   - conda-forge
+name: computer-vision-tool
+channels:
+  - conda-forge
+  - defaults
 dependencies:
   - python=3.9
-  - ffmpeg
   - av
   - pip
   - pip:

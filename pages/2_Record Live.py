@@ -8,6 +8,7 @@ import cv2
 import mediapipe as mp
 import requests
 import streamlit as st
+import tempfile
 from aiortc.contrib.media import MediaRecorder
 from streamlit_lottie import st_lottie
 from streamlit_webrtc import webrtc_streamer
@@ -37,7 +38,12 @@ def find_angle(x1, y1, x2, y2):
     return int(deg)
 
 
-out_file = Path("output.mp4")
+if "out_file_path" not in st.session_state:
+    tfile = tempfile.NamedTemporaryFile(delete=False, suffix=".mp4")
+    tfile.close()
+    st.session_state["out_file_path"] = Path(tfile.name)
+
+out_file = st.session_state["out_file_path"]
 
 
 def out_recorder_factory() -> MediaRecorder:

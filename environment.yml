@@ -4,6 +4,7 @@ channels:
 dependencies:
   - python=3.9
   - ffmpeg
+  - av
   - pip
   - pip:
     - streamlit>=1.39.0
@@ -14,8 +15,7 @@ dependencies:
     - Pillow
     - requests
     - streamlit-webrtc
-    # - av  # Installed via Condareamlit-lottie
-    - av
+    - streamlit-lottie
     - aiortc
     - aioice
     - opencv-python-headless

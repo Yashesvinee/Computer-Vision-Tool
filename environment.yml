@@ -1,9 +1,6 @@
 name: computer-vision-tool
 channels:
   - conda-forge
-name: computer-vision-tool
-channels:
-  - conda-forge
   - defaults
 dependencies:
   - python=3.9
@@ -11,8 +8,8 @@ dependencies:
   - pip
   - pip:
     - streamlit>=1.39.0
-    - mediapipe==0.10.9
-    - protobuf==3.20.3
+    - mediapipe
+    - protobuf
     - numpy<2.0.0
     - pandas
     - Pillow
@@ -22,4 +19,3 @@ dependencies:
     - aiortc
     - aioice
     - opencv-python-headless
-    # - protobuf<4.0.0  # Let pip resolve protobuf to avoid conflicts

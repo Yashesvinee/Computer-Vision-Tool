@@ -1,0 +1,19 @@
+name: computer-vision-tool
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - streamlit>=1.39.0
+    - mediapipe>=0.10.14
+    - numpy<2.0.0
+    - pandas
+    - Pillow
+    - requests
+    - streamlit-webrtc
+    - streamlit-lottie
+    - av
+    - aiortc
+    - aioice
+    - protobuf<4.0.0

@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
+  - av
   - pip
   - pip:
     - streamlit>=1.39.0
@@ -13,7 +14,7 @@ dependencies:
     - Pillow
     - requests
     - streamlit-webrtc
-    - streamlit-lottie
+    # - av  # Installed via Condareamlit-lottie
     - av
     - aiortc
     - aioice

@@ -2,12 +2,12 @@ name: computer-vision-tool
 channels:
   - conda-forge
 dependencies:
-  - python=3.10
+  - python=3.9
   - pip
   - pip:
     - streamlit>=1.39.0
-    - mediapipe
-    - protobuf<4.0.0
+    - mediapipe==0.10.9
+    - protobuf==3.20.3
     - numpy<2.0.0
     - pandas
     - Pillow

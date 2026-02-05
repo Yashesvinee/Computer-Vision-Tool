@@ -50,6 +50,10 @@ def out_recorder_factory() -> MediaRecorder:
 
 class VideoTransformer:
     def __init__(self):
+        # Debugging MediaPipe
+        import mediapipe as mp
+        print("MediaPipe Dir:", dir(mp))
+        
         # Initialize MediaPipe resources here, at runtime
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose()

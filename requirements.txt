@@ -1,7 +1,7 @@
 streamlit>=1.39.0
-mediapipe==0.10.14
-protobuf<4.24
-numpy
+mediapipe
+numpy<2.0.0
+protobuf
 pandas
 Pillow
 requests

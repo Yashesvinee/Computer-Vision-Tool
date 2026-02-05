@@ -6,7 +6,8 @@ dependencies:
   - pip
   - pip:
     - streamlit>=1.39.0
-    - mediapipe>=0.10.14
+    - mediapipe
+    - protobuf<4.0.0
     - numpy<2.0.0
     - pandas
     - Pillow

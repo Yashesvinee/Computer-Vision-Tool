@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
+  - ffmpeg
   - pip
   - pip:
     - streamlit>=1.39.0

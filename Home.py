@@ -1,15 +1,7 @@
 import tempfile
 
 # from streamlit_extras.switch_page_button import switch_page
-try:
-    import av
-except ImportError:
-    import subprocess
-    import sys
-    # Force install if missing (last resort debugging)
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "av"])
-    import av
-
+import av
 from streamlit_webrtc import webrtc_streamer
 import streamlit as st
 import numpy as np
